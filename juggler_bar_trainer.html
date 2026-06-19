@@ -16,14 +16,14 @@
   .reel-box{position:relative;width:150px;}
   .reel-label{text-align:center;color:var(--txt-dim);font-size:11px;margin-bottom:6px;letter-spacing:.1em;}
   .window{position:relative;height:calc(var(--cell)*3);overflow:visible;}
-  .reel-clip{position:absolute;inset:0;overflow:hidden;background:#fff;border-radius:10px;box-shadow:inset 0 0 0 2px #000,inset 0 14px 22px -10px rgba(0,0,0,.55),inset 0 -14px 22px -10px rgba(0,0,0,.55);}
+  .reel-clip{position:absolute;inset:-16px 0;overflow:hidden;background:#fff;border-radius:10px;box-shadow:inset 0 0 0 2px #000,inset 0 14px 22px -10px rgba(0,0,0,.55),inset 0 -14px 22px -10px rgba(0,0,0,.55);-webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.45) 8px,#000 18px,#000 calc(100% - 18px),rgba(0,0,0,.45) calc(100% - 8px),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.45) 8px,#000 18px,#000 calc(100% - 18px),rgba(0,0,0,.45) calc(100% - 8px),transparent 100%);}
   .strip{position:absolute;left:0;top:0;width:100%;will-change:transform;}
   .sym{height:var(--cell);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(0,0,0,.10);position:relative;user-select:none;background:#fff;}
   .sym img{max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;}
   .payline{position:absolute;left:-2px;right:-2px;height:var(--cell);top:0;pointer-events:none;z-index:5;}
   .payline::before{content:"";position:absolute;left:4px;right:4px;top:0;bottom:0;border:2px solid rgba(242,178,26,0);border-radius:8px;}
   .payline.active::before{border-color:rgba(242,178,26,.85);box-shadow:0 0 14px rgba(242,178,26,.35);}
-  .zone-bar{position:absolute;left:-13px;top:0;width:5px;height:calc(var(--cell)*1.5);background:var(--good);border-radius:3px;opacity:.9;z-index:7;box-shadow:0 0 7px rgba(55,196,107,.6);}
+  .zone-bar{position:absolute;left:-13px;top:-16px;width:5px;height:calc(var(--cell)*3 + 32px);background:var(--good);border-radius:3px;opacity:.9;z-index:7;box-shadow:0 0 7px rgba(55,196,107,.6);}
   .window.d3 .zone-bar{display:none;}
   .cyl-wrap{position:absolute;inset:0;overflow:hidden;border-radius:10px;background:#fafafa;perspective:820px;display:none;box-shadow:inset 0 0 0 2px #000;}
   .window.d3 .reel-clip{display:none;}
@@ -50,18 +50,46 @@
   .press-mark.show{display:block;}
   .press-mark.ok{border-left-color:var(--good);}
   .press-mark.ng{border-left-color:var(--miss);}
+  .press-mark2{position:absolute;left:-28px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:9px solid rgba(255,255,255,.65);z-index:7;display:none;}
+  .press-mark2.show{display:block;}
+  .gmark2{position:absolute;top:-1px;width:2px;height:12px;background:rgba(255,255,255,.7);border-radius:1px;left:50%;transform:translateX(-50%);}
   .window.d3 .press-mark{display:none;}
   .gauge{margin:22px auto 0;max-width:300px;}
   .gtrack{position:relative;height:10px;background:#20242e;border-radius:5px;border:1px solid var(--line);}
-  .gzone{position:absolute;top:0;bottom:0;left:41.7%;width:25%;background:rgba(55,196,107,.35);border-left:1px solid var(--good);border-right:1px solid var(--good);}
-  .gwin{position:absolute;top:0;bottom:0;left:41.7%;width:50%;background:rgba(255,255,255,.05);border-left:1px dashed rgba(255,255,255,.45);border-right:1px dashed rgba(255,255,255,.45);}
+  .gzone{position:absolute;top:0;bottom:0;left:21.4%;width:71.4%;background:rgba(55,196,107,.35);border-left:1px solid var(--good);border-right:1px solid var(--good);}
+  .gwin{position:absolute;top:0;bottom:0;left:35.7%;width:42.9%;background:rgba(255,255,255,.05);border-left:1px dashed rgba(255,255,255,.45);border-right:1px dashed rgba(255,255,255,.45);}
   .gwin::after{content:"枠内（上中下段）";position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--txt-dim);white-space:nowrap;}
   .gmark{position:absolute;top:-3px;width:3px;height:16px;background:var(--gold);border-radius:2px;left:50%;transform:translateX(-50%);transition:left .12s ease-out, background .12s;}
   .gmark.ok{background:var(--good);} .gmark.ng{background:var(--miss);}
   .glabels{display:flex;justify-content:space-between;font-size:10px;color:var(--txt-dim);margin-top:4px;}
   .lamp{position:absolute;right:-30px;top:calc(var(--cell)/2 - 12px);width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #4a4030, #1c1810);border:1px solid #000;z-index:6;transition:box-shadow .12s ease-out, background .12s ease-out;}
   .lamp.lit{background:radial-gradient(circle at 35% 35%, #fffae0, #f2b21a 60%, #c98a00);box-shadow:0 0 16px 4px rgba(242,178,26,.9), 0 0 4px #fff inset;}
-  .verdict{text-align:center;min-height:30px;margin:14px 0 4px;font-weight:700;font-size:15px;line-height:1.4;}
+  .verdict{text-align:center;min-height:30px;margin:26px 0 4px;font-weight:700;font-size:15px;line-height:1.4;}
+  .gogo{position:absolute;right:-82px;bottom:-2px;width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#141414,#000);border:2px solid #1c1c1c;overflow:hidden;box-shadow:0 0 0 5px #000,0 4px 12px rgba(0,0,0,.7);transition:box-shadow .12s;z-index:6;}
+  .gogo-burst{position:absolute;left:8%;top:8%;width:84%;height:84%;z-index:1;}
+  .gogo-burst polygon{fill:#141414;transition:fill .12s;}
+  .gg-txt{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%) rotate(-9deg);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;font-weight:900;letter-spacing:.01em;color:#242424;z-index:2;transition:color .12s;}
+  .gg-go{font-size:9px;}
+  .gg-ch{font-size:6.5px;letter-spacing:.03em;margin-top:1px;}
+  .gogo.lit{animation:ggflash .5s ease-out;}
+  @keyframes ggflash{0%{filter:brightness(2.4);transform:scale(1.14);}40%{filter:brightness(1.5);transform:scale(1.04);}100%{filter:brightness(1);transform:scale(1);}}
+  .gogo.lit .gg-txt{text-shadow:0 1px 2px rgba(0,0,0,.45);}
+  .gogo.lit.c-blue{box-shadow:0 0 0 6px #000,0 0 22px #4af;}
+  .gogo.lit.c-blue .gogo-burst polygon{fill:#19a0ff;} .gogo.lit.c-blue .gg-txt{color:#fff;}
+  .gogo.lit.c-yellow{box-shadow:0 0 0 6px #000,0 0 22px #fd0;}
+  .gogo.lit.c-yellow .gogo-burst polygon{fill:#ffd11a;} .gogo.lit.c-yellow .gg-txt{color:#c0392b;}
+  .gogo.lit.c-green{box-shadow:0 0 0 6px #000,0 0 22px #5e5;}
+  .gogo.lit.c-green .gogo-burst polygon{fill:#27c93f;} .gogo.lit.c-green .gg-txt{color:#fff;}
+  .gogo.lit.c-white{box-shadow:0 0 0 6px #000,0 0 22px #fff;}
+  .gogo.lit.c-white .gogo-burst polygon{fill:#f2f2f2;} .gogo.lit.c-white .gg-txt{color:#1565c0;}
+  .gogo.lit.c-purple{box-shadow:0 0 0 6px #000,0 0 22px #a5f;}
+  .gogo.lit.c-purple .gogo-burst polygon{fill:#9b30ff;} .gogo.lit.c-purple .gg-txt{color:#ffe04a;}
+  .gogo.lit.c-red{box-shadow:0 0 0 6px #000,0 0 24px #f44;}
+  .gogo.lit.c-red .gogo-burst polygon{fill:#ff2e2e;} .gogo.lit.c-red .gg-txt{color:#fff04a;}
+  .gogo.lit.c-pink{box-shadow:0 0 0 6px #000,0 0 24px #f9c;}
+  .gogo.lit.c-pink .gogo-burst polygon{fill:#ff5fa2;} .gogo.lit.c-pink .gg-txt{color:#fff;}
+  .gogo.lit.c-rainbow{box-shadow:0 0 0 6px #000,0 0 26px #fff;}
+  .gogo.lit.c-rainbow .gogo-burst polygon{fill:url(#ggrain);} .gogo.lit.c-rainbow .gg-txt{color:#fff;}
   .verdict .hint{font-weight:500;font-size:12px;color:var(--txt-dim);}
   .v-good{color:var(--good);}.v-ok{color:var(--ok);}.v-miss{color:var(--miss);}.v-wait{color:var(--txt-dim);}
   .controls{display:flex;gap:10px;margin-top:8px;}
@@ -128,14 +156,21 @@
           <div class="payline" id="payline"></div>
           <div class="zone-bar"></div>
           <div class="press-mark" id="pmark"></div>
+          <div class="press-mark2" id="pmark2"></div>
           <div class="mini3d-wrap" id="miniWrap"><div class="mini3d-tilt"><div class="mini3d-cyl" id="miniCyl"></div></div></div>
           <div class="lamp" id="lamp"></div>
+          <div class="gogo" id="gogo" style="display:none"><svg class="gogo-burst" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="ggrain" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3b3b"/><stop offset="0.25" stop-color="#ffb01a"/><stop offset="0.5" stop-color="#2ec94a"/><stop offset="0.75" stop-color="#1f8bff"/><stop offset="1" stop-color="#b14bff"/></linearGradient></defs><polygon points="50,2 60,30 88,18 70,42 98,50 70,58 88,82 60,70 50,98 40,70 12,82 30,58 2,50 30,42 12,18 40,30"/></svg><span class="gg-txt"><span class="gg-go">GOGO!</span><span class="gg-ch">CHANCE!</span></span></div>
         </div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:8px;display:flex;gap:8px;justify-content:center;">
+      <button id="testGako" style="background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;">ガコン音</button>
+      <button id="testFan" style="background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;">当選音</button>
+      <button id="testPeka" style="background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;">点灯テスト</button>
+    </div>
     <div class="verdict" id="verdict"></div>
     <div class="gauge">
-      <div class="gtrack"><div class="gwin"></div><div class="gzone"></div><div class="gmark" id="gmark"></div></div>
+      <div class="gtrack"><div class="gwin"></div><div class="gzone"></div><div class="gmark2" id="gmark2"></div><div class="gmark" id="gmark"></div></div>
       <div class="glabels"><span>早い</span><span>狙いゾーン</span><span>遅い</span></div>
     </div>
     <div class="controls">
@@ -157,6 +192,7 @@
     <div class="toggle-row"><div class="lblwrap"><div class="lbl">上段ライト<button class="info" type="button">i</button></div><div class="desc">狙いBARが上の方にある間、リール右のランプが点灯します</div></div><label class="switch"><input type="checkbox" id="tLamp"><span class="slider"></span></label></div>
     <div class="toggle-row"><div class="lblwrap"><div class="lbl">タイミング音<button class="info" type="button">i</button></div><div class="desc">狙いゾーンに入った瞬間にビープ（1周1回）</div></div><label class="switch"><input type="checkbox" id="tSound"><span class="slider"></span></label></div>
     <div class="toggle-row"><div class="lblwrap"><div class="lbl">レバーオン音<button class="info" type="button">i</button></div><div class="desc">回転開始時にファンファーレ</div></div><label class="switch"><input type="checkbox" id="tLever"><span class="slider"></span></label></div>
+    <div class="toggle-row"><div class="lblwrap"><div class="lbl">GOGOランプ<button class="info" type="button">i</button></div><div class="desc">9回成功で点灯（色はランダム）、10回成功で当選ファンファーレ</div></div><label class="switch"><input type="checkbox" id="tGogo"><span class="slider"></span></label></div>
     <div class="toggle-row"><div class="lblwrap"><div class="lbl">リール速度<button class="info" type="button">i</button></div><div class="desc">実機＝1周0.78秒。ウェイト4.1秒/G を常時再現</div>
       <div class="seg" id="speedSeg"><button data-mul="0.6">ゆっくり</button><button data-mul="1.0" class="on">実機</button><button data-mul="1.3">速い</button></div></div></div>
   </div>
@@ -192,7 +228,7 @@ const N=REEL.length, CELL=55, BASE_CPS=N/0.78, WAIT_MS=4100;
 const barIdx=REEL.map((s,i)=>s==='BAR'?i:-1).filter(i=>i>=0);
 let curTarget=barIdx[0];
 const FC=((N-curTarget)%N+N)%N;
-const ZONE_LO=-0.5, ZONE_HI=1.0;      // 上段全体(±0.5)＋中段上半分(+1.0)
+const ZONE_LO=-1.5, ZONE_HI=3.5;      // 枠上1コマ〜枠内3コマ〜枠下1コマ
 
 const strip=document.getElementById('strip');
 function cell(i){const d=document.createElement('div');d.className='sym'+(REEL[i]==='BAR'?' sym-BAR':'');d.dataset.ri=i;
@@ -212,7 +248,7 @@ for(let i=0;i<N;i++){
 function draw3D(){
   cyl.style.transform='rotateX('+(-pos*TH+TH)+'deg)';
   const top=topReelIndex(pos);
-  const win=[top,(top+1)%N,(top+2)%N], zone=[top,(top+1)%N];
+  const win=[top,(top+1)%N,(top+2)%N], zone=[(top-1+N)%N,top,(top+1)%N,(top+2)%N,(top+3)%N];
   for(let i=0;i<N;i++){
     const w=win.indexOf(i)>=0;
     panels[i].classList.toggle('win', w);
@@ -237,7 +273,7 @@ for(let i=0;i<N;i++){
 function drawMini(){
   miniCyl.style.transform='rotateX('+(-pos*TH+TH)+'deg)';
   const top=topReelIndex(pos);
-  const win=[top,(top+1)%N,(top+2)%N], zone=[top,(top+1)%N];
+  const win=[top,(top+1)%N,(top+2)%N], zone=[(top-1+N)%N,top,(top+1)%N,(top+2)%N,(top+3)%N];
   for(let i=0;i<N;i++){
     const w=win.indexOf(i)>=0;
     mpanels[i].classList.toggle('win', w);
@@ -251,7 +287,7 @@ function drawMini(){
   }
 }
 
-let pos=0,spinning=false,raf=null,lastT=0,speedMul=1.0,prevInZone=false,is3D=false,lastBeepT=0;
+let pos=0,spinning=false,raf=null,lastT=0,speedMul=1.0,prevInZone=false,is3D=false,lastBeepT=0,gogoOn=false,gogoCount=0;
 let lastStart=-1e9,waiting=false,waitTimer=null;
 const winEl=document.getElementById('window'),payline=document.getElementById('payline'),
       startBtn=document.getElementById('startBtn'),stopBtn=document.getElementById('stopBtn'),
@@ -270,8 +306,31 @@ function leverSound(){if(!leverOn||!ac())return;const notes=[[523,0,0.12],[659,0
   for(const [f,off,len] of notes){const o=actx.createOscillator(),g=actx.createGain();o.type='triangle';o.frequency.value=f;const st=actx.currentTime+off;g.gain.setValueAtTime(0.0001,st);g.gain.exponentialRampToValueAtTime(0.26,st+0.012);g.gain.exponentialRampToValueAtTime(0.0001,st+len);o.connect(g);g.connect(actx.destination);o.start(st);o.stop(st+len+0.05);}}
 
 function topReelIndex(p){const f=((p%N)+N)%N;return ((Math.round(N-f))%N+N)%N;}
-function phaseDelta(){let f=((pos%N)+N)%N;let fc=((N-curTarget)%N+N)%N;let d=f-fc;if(d>N/2)d-=N;else if(d<-N/2)d+=N;return d;}
-function draw(){const f=((pos%N)+N)%N;strip.style.transform='translateY('+((f-N)*CELL)+'px)';}
+const GOGO_COLORS=['c-blue','c-blue','c-blue','c-blue','c-blue','c-blue','c-blue','c-yellow','c-green','c-white','c-purple','c-red','c-pink','c-rainbow'];
+function gogoPeka(){document.getElementById('gogo').className='gogo lit '+GOGO_COLORS[Math.floor(Math.random()*GOGO_COLORS.length)];}
+function gogoOff(){document.getElementById('gogo').className='gogo';}
+function gogoGako(){if(!ac())return;const c=actx;const o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();o.type='square';f.type='lowpass';f.frequency.value=900;const t=c.currentTime;o.frequency.setValueAtTime(220,t);o.frequency.exponentialRampToValueAtTime(70,t+0.09);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.5,t+0.006);g.gain.exponentialRampToValueAtTime(0.0001,t+0.16);o.connect(f);f.connect(g);g.connect(c.destination);o.start(t);o.stop(t+0.18);const n=c.createBufferSource(),nb=c.createBuffer(1,c.sampleRate*0.05,c.sampleRate),d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);n.buffer=nb;const ng=c.createGain();ng.gain.value=0.35;n.connect(ng);ng.connect(c.destination);n.start(t);}
+function gogoFanfare(){if(!ac())return;const c=actx;const T0=c.currentTime;
+  const master=c.createGain();master.gain.value=0.72;
+  const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=4600;
+  const comp=c.createDynamicsCompressor();comp.threshold.value=-15;comp.ratio.value=3.5;comp.attack.value=0.002;
+  master.connect(lp);lp.connect(comp);comp.connect(c.destination);
+  function brass(f,st,len,vol){
+    [0,8,-8].forEach((det,i)=>{const o=c.createOscillator(),g=c.createGain();o.type='sawtooth';o.frequency.value=f;o.detune.value=det;const t=T0+st;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(i===0?vol:vol*0.5,t+0.006);g.gain.setValueAtTime(i===0?vol:vol*0.5,t+len*0.5);g.gain.exponentialRampToValueAtTime(0.0001,t+len);o.connect(g);g.connect(master);o.start(t);o.stop(t+len+0.05);});
+    const o2=c.createOscillator(),g2=c.createGain();o2.type='sawtooth';o2.frequency.value=f/2;const t=T0+st;g2.gain.setValueAtTime(0.0001,t);g2.gain.exponentialRampToValueAtTime(vol*0.32,t+0.006);g2.gain.exponentialRampToValueAtTime(0.0001,t+len);o2.connect(g2);g2.connect(master);o2.start(t);o2.stop(t+len+0.05);
+  }
+  function hit(st,vol){const len=0.045,nb=c.createBuffer(1,Math.floor(c.sampleRate*len),c.sampleRate),d=nb.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);const n=c.createBufferSource();n.buffer=nb;const bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2800;bp.Q.value=0.7;const g=c.createGain();g.gain.value=vol;n.connect(bp);bp.connect(g);g.connect(master);n.start(T0+st);}
+  hit(0.00,0.22);brass(784,0.00,0.13,0.23);
+  hit(0.16,0.22);brass(784,0.16,0.13,0.23);
+  hit(0.32,0.22);brass(784,0.32,0.11,0.23);
+  hit(0.44,0.26);brass(1047,0.44,0.24,0.25);
+  brass(1319,0.72,0.16,0.23);
+  brass(1568,0.90,0.18,0.23);
+  hit(1.10,0.3);[1047,1319,1568,2093].forEach(f=>brass(f,1.10,0.98,0.18));
+  [2637,3136].forEach((f,i)=>brass(f,1.18+i*0.08,0.45,0.07));}
+function phaseOf(t){let f=((pos%N)+N)%N;let fc=((N-t)%N+N)%N;let d=f-fc;if(d>N/2)d-=N;else if(d<-N/2)d+=N;return d;}
+function phaseDelta(){return phaseOf(curTarget);}
+function draw(){const f=((pos%N)+N)%N;strip.style.transform='translateY('+((f-N)*CELL+16)+'px)';}
 function loop(t){
   if(!spinning)return;
   if(!lastT)lastT=t;
@@ -299,7 +358,7 @@ function beginSpin(){
   lastStart=performance.now();leverSound();
   spinning=true;lastT=0;prevInZone=false;
   verdict.textContent='';verdict.className='verdict';
-  payline.classList.remove('active');lamp.classList.remove('lit');winEl.classList.remove('d3');miniWrap.style.display='none';document.getElementById('pmark').classList.remove('show');curTarget=barIdx[0];
+  payline.classList.remove('active');lamp.classList.remove('lit');winEl.classList.remove('d3');miniWrap.style.display='none';document.getElementById('pmark').classList.remove('show');document.getElementById('pmark2').classList.remove('show');document.getElementById('gmark2').style.display='none';curTarget=barIdx[0];
   startBtn.disabled=true;stopBtn.disabled=false;document.getElementById('t3D').disabled=true;document.getElementById('m3dLabel').classList.add('dis');
   raf=requestAnimationFrame(loop);
 }
@@ -316,19 +375,34 @@ function stopSpin(){
 }
 function evaluate(dPress){
   trials++;
-  var inZone=(dPress>=ZONE_LO && dPress<=ZONE_HI);
+  var otherBar=barIdx.filter(function(b){return b!==curTarget;})[0];
+  var dOther=(otherBar!=null)?phaseOf(otherBar):999;
+  var mainIn=(dPress>=ZONE_LO && dPress<=ZONE_HI);
+  var otherIn=(dOther>=ZONE_LO && dOther<=ZONE_HI);
+  var inZone=mainIn||otherIn;
   var gmark=document.getElementById('gmark');
-  gmark.style.left=Math.max(0,Math.min(100,(dPress+3)/6*100))+'%';
-  gmark.className='gmark '+(inZone?'ok':'ng');
+  gmark.style.left=Math.max(0,Math.min(100,(dPress+3)/7*100))+'%';
+  gmark.className='gmark '+(mainIn?'ok':'ng');
   var pmark=document.getElementById('pmark');
-  pmark.style.top=Math.max(-6,Math.min(CELL*3-6,(dPress+0.5)*CELL-6))+'px';
-  pmark.className='press-mark show '+(inZone?'ok':'ng');
+  pmark.style.top=Math.max(-16,Math.min(CELL*3+4,(dPress+0.5)*CELL-6))+'px';
+  pmark.className='press-mark show '+(mainIn?'ok':'ng');
+  var gm2=document.getElementById('gmark2'), pm2=document.getElementById('pmark2');
+  if(otherBar!=null){
+    gm2.style.left=Math.max(0,Math.min(100,(dOther+3)/7*100))+'%';
+    gm2.style.display='block';
+    pm2.style.top=Math.max(-16,Math.min(CELL*3+4,(dOther+0.5)*CELL-6))+'px';
+    pm2.classList.add('show');
+  }else{ gm2.style.display='none'; pm2.classList.remove('show'); }
   var dStop=phaseDelta();
   if(dStop>=-0.5 && dStop<=2.5) inHits++;
   if(inZone){
     topHits++;streak++;
+    if(gogoOn){if(streak%10===9){gogoPeka();gogoGako();}else if(streak%10===0&&streak>0){gogoFanfare();gogoOff();}}
     verdict.className='verdict v-good';
-    verdict.innerHTML=(dPress<=0.5?'上段ゾーンで押せました':'中段上半分で押せました')+' <span class="hint">チェリーをフォロー</span>';
+    var basis=mainIn?dPress:dOther;
+    var pn=basis<-0.5?'枠上1コマ':basis<0.5?'上段':basis<1.5?'中段':basis<2.5?'下段':'枠下1コマ';
+    var sub=(mainIn&&otherIn)?'両BARゾーン内':(otherIn&&!mainIn)?'別BARでゾーン内':'狙いBARゾーン内';
+    verdict.innerHTML=pn+'で止まりました <span class="hint">'+sub+'</span>';
     judgeTone(1320,0.09,0.22);
   }else{
     streak=0;
@@ -346,10 +420,14 @@ startBtn.addEventListener('click',onLever);
 stopBtn.addEventListener('click',stopSpin);
 winEl.addEventListener('click',()=>{if(spinning)stopSpin();});
 document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();if(spinning)stopSpin();else onLever();}});
-document.getElementById('resetBtn').addEventListener('click',()=>{trials=topHits=inHits=streak=0;renderStats();verdict.textContent='';verdict.className='verdict';});
+document.getElementById('resetBtn').addEventListener('click',()=>{trials=topHits=inHits=streak=0;gogoCount=0;gogoOff();renderStats();verdict.textContent='';verdict.className='verdict';});
 document.getElementById('tLamp').addEventListener('change',e=>{lampOn=e.target.checked;if(!lampOn)lamp.classList.remove('lit');});
 document.getElementById('tSound').addEventListener('change',e=>{soundOn=e.target.checked;if(soundOn)ac();});
 document.getElementById('tLever').addEventListener('change',e=>{leverOn=e.target.checked;if(leverOn)ac();});
+document.getElementById('tGogo').addEventListener('change',e=>{gogoOn=e.target.checked;ac();document.getElementById('gogo').style.display=gogoOn?'flex':'none';if(!gogoOn){gogoOff();}});
+document.getElementById('testGako').addEventListener('click',()=>{ac();gogoGako();});
+document.getElementById('testFan').addEventListener('click',()=>{ac();gogoFanfare();});
+document.getElementById('testPeka').addEventListener('click',()=>{const g=document.getElementById('gogo');g.style.display='flex';gogoPeka();gogoGako();ac();});
 document.getElementById('t3D').addEventListener('change',e=>{is3D=e.target.checked;if(is3D){miniWrap.style.display='none';if(!spinning){winEl.classList.add('d3');draw3D();}}else{winEl.classList.remove('d3');if(!spinning){miniWrap.style.display='block';drawMini();}}});
 document.querySelectorAll('.info').forEach(b=>b.addEventListener('click',()=>{const d=b.closest('.lblwrap').querySelector('.desc');if(d)d.classList.toggle('show');}));
 document.getElementById('speedSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...e.currentTarget.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');speedMul=parseFloat(b.dataset.mul);});
